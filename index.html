@@ -12,13 +12,30 @@
 </head>
 <body>
 
-  <div class="py-5">
-    <div class="container">
+  <div id="hc-main" class="d-flex flex-column">
+    <header>
+      <!-- https://www.w3.org/WAI/GL/2016/WD-WCAG20-TECHS-20160105/G1 -->
+      <nav is="hc-navigation" logo-href="./" skip-content-link="#main-content"></nav>
 
-      <div id="app"></div>
+      <ol is="hc-banner" title="hc-trash-hauler-schedule-lookup">
+        <!-- ancestors -->
+        <li class="breadcrumb-item"><a href="./">Home</a></li>
+      </ol>
+    </header>
 
-    </div>
+    <main id="main-content" class="py-5">
+      <div class="container">
+        <div id="app"></div>
+      </div>
+    </main>
+
+    <footer is="hc-footer" class="mt-auto"></footer>
   </div>
+
+  <!-- Optional JavaScript -->
+  <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/manifest.js"></script>
+  <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/vendor.js"></script>
+  <script type="text/javascript" src="https://commbocc.github.io/html-wrapper/static/js/app.js"></script>
 
   <script src="./dist/build.js"></script>
 </body>

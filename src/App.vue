@@ -1,32 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+
+    <form is="HcEsriSearchWidget" @submit="resetApp" @result="findProviderAndSchedule"></form>
+
+    <!-- alerts -->
+    <div v-if="status" class="alert alert-warning">
+      {{ status }}
+    </div>
+
+    <div v-show="searchResult" class="card mb-3">
+      <!-- provider -->
+      <div is="Provider" ref="provider"></div>
+
+      <!-- schedule -->
+      <div is="Schedule" ref="schedule"></div>
+    </div>
+
+    <!-- <pre class="p-3 bg-dark text-white">{{ $store.state }}</pre> -->
+
   </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex'
+import HcEsriSearchWidget from 'hc-esri-search-widget'
+import Provider from './components/Provider'
+import Schedule from './components/Schedule'
+
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  components: {
+    HcEsriSearchWidget, Provider, Schedule
+  },
+  methods: mapActions(['resetApp', 'findProviderAndSchedule']),
+  computed: mapState({
+    searchResult: state => state.search.result,
+    status: state => state.status
+  })
 }
 </script>
 

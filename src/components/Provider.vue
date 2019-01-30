@@ -41,9 +41,9 @@ import { mapState } from 'vuex'
 
 export default {
   computed: mapState({
-    loading: state => false,
+    loading: state => state.provider.loading,
     provider: state => state.provider.instance,
-    status: state => false
+    status: state => state.provider.status
   })
 }
 </script>

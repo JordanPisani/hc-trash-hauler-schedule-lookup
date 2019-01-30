@@ -9,7 +9,7 @@ export default {
   state: {
     instance: null,
     loading: false,
-    status: false
+    status: null
   },
   actions: {
     findSchedule({ dispatch, commit, rootState }) {

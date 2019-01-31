@@ -80,7 +80,7 @@ export default class Provider {
         website: 'https://www.tampagov.net/solid-waste/programs'
       },
       {
-        id: 'TEMPLE TERRACE',
+        id: 'CITY OF TEMPLE TERRACE',
         name: 'City of Temple Terrace',
         address: null,
         phone: '8135066570',

@@ -31,11 +31,11 @@ export default {
       return new Promise((resolve, reject) => {
         dispatch('queryFeatures', countyFeatureUrl).then(feature => {
           if (feature) {
-            resolve(new Provider(feature, 'TAG'))
+            return new Provider(feature, 'TAG')
           } else {
-            reject('A County Solid Waste Provider could not be determined.')
+            throw 'no county provider'
           }
-        })
+        }).then(provider => resolve(provider)).catch(err => reject('A County Solid Waste Provider could not be determined.'))
       })
     },
     queryCities ({ dispatch }) {
@@ -44,11 +44,11 @@ export default {
       return new Promise((resolve, reject) => {
         dispatch('queryFeatures', cityFeatureUrl).then(feature => {
           if (feature) {
-            resolve(new Provider(feature, 'NAME'))
+            return new Provider(feature, 'NAME')
           } else {
-            reject('A Solid Waste Provider could not be determined.')
+            throw 'no city provider'
           }
-        })
+        }).then(provider => resolve(provider)).catch(err => reject('A Solid Waste Provider could not be determined.'))
       })
     }
   },

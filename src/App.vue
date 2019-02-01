@@ -9,6 +9,11 @@
     </div>
 
     <div v-show="searchResult" class="card mb-3">
+      <div v-if="searchResult" class="card-header bg-secondary text-white font-weight-bold">
+        Results For:
+        {{ searchResult.result.name }}
+      </div>
+
       <!-- provider -->
       <div is="Provider" ref="provider"></div>
 

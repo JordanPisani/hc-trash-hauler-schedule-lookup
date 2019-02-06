@@ -16,7 +16,7 @@ export default {
       commit('setScheduleLoading')
       commit('setScheduleStatus', 'Finding your schedule...')
 
-      Schedule.find([
+      return Schedule.find([
         dispatch('queryFeatures', trashUrl),
         dispatch('queryFeatures', recycleUrl),
         dispatch('queryFeatures', yardUrl)
@@ -28,6 +28,7 @@ export default {
           err += (rootState.provider.instance) ? ', but we know who your hauler is. Contact the provider listed above for your pickup schedule.' : '.'
           throw err
         }
+        commit('setScheduleStatus', true)
       }).catch(err => {
         commit('setScheduleStatus', err)
       }).then(() => {

@@ -4,11 +4,12 @@ import Vuex from 'vuex'
 import { VuexModule as search } from 'hc-esri-search-widget'
 import provider from './modules/provider'
 import schedule from './modules/schedule'
+import loggly from './modules/loggly'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { search, provider, schedule },
+  modules: { search, provider, schedule, loggly },
   state: {
     status: null
   },
@@ -17,13 +18,12 @@ export default new Vuex.Store({
       // save search result to store state
       dispatch('saveSearchResult', searchResult).then(result => {
         // find provider then schedule
-        dispatch('findProvider').then(() => dispatch('findSchedule'))
+        return dispatch('findProvider').then(() => dispatch('findSchedule'))
       }).catch(err => {
         // search error handling
         commit('setAppStatus', err)
       }).then(() => {
-        // TODO: send state to loggly
-        // dispatch('loggly')
+        dispatch('loggly')
       })
     },
     resetApp ({ commit }, e) {

@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "hc-esri-search-widget": "git+https://github.com/Commbocc/hc-esri-search-widget.git",
     "moment": "^2.22.2",
     "underscore": "^1.9.1",

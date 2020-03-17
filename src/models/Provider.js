@@ -74,7 +74,7 @@ export default class Provider {
         id: 'CITY OF TAMPA',
         name: 'City of Tampa',
         address: null,
-        phone: '8132748811',
+        phone: '8133481111',
         fax: null,
         email: null,
         website: 'https://www.tampagov.net/solid-waste/programs'

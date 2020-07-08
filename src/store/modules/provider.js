@@ -35,7 +35,7 @@ export default {
           } else {
             throw 'no county provider'
           }
-        }).then(provider => resolve(provider)).catch(err => reject('A County Solid Waste Provider could not be determined.'))
+        }).then(provider => resolve(provider)).catch(() => reject('A County Solid Waste Provider could not be determined.'))
       })
     },
     queryCities ({ dispatch }) {
@@ -48,7 +48,7 @@ export default {
           } else {
             throw 'no city provider'
           }
-        }).then(provider => resolve(provider)).catch(err => reject('A Solid Waste Provider could not be determined.'))
+        }).then(provider => resolve(provider)).catch(() => reject('A Solid Waste Provider could not be determined.'))
       })
     }
   },

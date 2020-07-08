@@ -16,7 +16,7 @@ export default new Vuex.Store({
   actions: {
     findProviderAndSchedule ({ dispatch, commit }, searchResult) {
       // save search result to store state
-      dispatch('saveSearchResult', searchResult).then(result => {
+      dispatch('saveSearchResult', searchResult).then(() => {
         // find provider then schedule
         return dispatch('findProvider').then(() => dispatch('findSchedule'))
       }).catch(err => {
@@ -26,7 +26,7 @@ export default new Vuex.Store({
         dispatch('loggly')
       })
     },
-    resetApp ({ commit }, e) {
+    resetApp ({ commit }) {
       commit('setSearchResult', null)
       commit('setAppStatus', null)
       commit('setProvider', null)
@@ -35,7 +35,7 @@ export default new Vuex.Store({
       commit('setScheduleStatus', null)
     },
     queryFeatures ({ rootState }, url) {
-      return rootState.search.result.queryFeatures(url).catch(err => null)
+      return rootState.search.result.queryFeatures(url).catch(() => null)
     }
   },
   mutations: {

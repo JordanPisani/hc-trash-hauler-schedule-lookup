@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-
     <form is="HcEsriSearchWidget" @submit="resetApp" @result="findProviderAndSchedule"></form>
 
     <!-- alerts -->
-    <div v-if="status" class="alert alert-warning">
-      {{ status }}
-    </div>
+    <div v-if="status" class="alert alert-warning">{{ status }}</div>
 
     <div v-show="searchResult" class="card mb-3">
       <div v-if="searchResult" class="card-header bg-secondary text-white font-weight-bold">
@@ -22,19 +19,20 @@
     </div>
 
     <!-- <pre class="p-3 bg-dark text-white">{{ $store.state }}</pre> -->
-
   </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import HcEsriSearchWidget from 'hc-esri-search-widget'
 import Provider from './components/Provider'
 import Schedule from './components/Schedule'
 
 export default {
   components: {
-    HcEsriSearchWidget, Provider, Schedule
+    HcEsriSearchWidget,
+    Provider,
+    Schedule
   },
   methods: mapActions(['resetApp', 'findProviderAndSchedule']),
   computed: mapState({

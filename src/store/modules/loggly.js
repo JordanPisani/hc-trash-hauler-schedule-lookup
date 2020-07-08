@@ -7,9 +7,9 @@ export default {
         var logUrl = 'https://logs-01.loggly.com/inputs/ff424bed-98df-4ab6-ac0e-49dc5d9ae378/tag/hc-trash-hauler/'
         axios.post(logUrl, JSON.stringify(rootState), {
           headers: {'Content-Type': 'text/plain'}
-        }).then(res => {})
+        })
       } else {
-        console.log(rootState)
+        console.log('loggly dev:', rootState)
       }
     }
   }

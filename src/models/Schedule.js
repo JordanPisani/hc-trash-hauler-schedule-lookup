@@ -28,7 +28,7 @@ export default class Schedule {
   }
 
   static find (promiseArr) {
-    var schedule = new this()
+    var schedule = new Schedule()
     return Promise.all(promiseArr).then(results => {
       results.forEach(feature => {
         if (feature) {

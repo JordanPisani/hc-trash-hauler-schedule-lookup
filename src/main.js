@@ -1,12 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue/dist/vue'
+import HcHaulerApp from './App.vue'
 
-// import router from './router'
-import store from './store'
+Vue.config.productionTip = false
 
-new Vue({
-  el: '#HcHaulerApp',
-  // router,
-  store,
-  render: h => h(App)
+Vue.use(HcHaulerApp, {
+  providers: window.providers
 })
+
+new Vue().$mount('#app')

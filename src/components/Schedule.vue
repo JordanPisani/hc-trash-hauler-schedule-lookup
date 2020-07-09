@@ -39,13 +39,42 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { Schedule } from '@/models'
+const endpoint =
+  'https://maps.hillsboroughcounty.org/arcgis/rest/services/SolidWaste_Viewer/SolidWasteRouteSchedules/MapServer'
+const trashUrl = `${endpoint}/2`
+const recycleUrl = `${endpoint}/1`
+const yardUrl = `${endpoint}/0`
 
 export default {
-  computed: mapState({
-    loading: state => state.schedule.loading,
-    schedule: state => state.schedule.instance,
-    status: state => state.schedule.status
-  })
+  data: () => ({
+    schedule: null,
+    loading: false,
+    status: null
+  }),
+  methods: {
+    async find(query) {
+      this.schedule = null
+      this.loading = true
+      this.status = 'Loading...'
+
+      try {
+        this.schedule = await Schedule.find([
+          query(trashUrl),
+          query(recycleUrl),
+          query(yardUrl)
+        ])
+        this.status = 'ok'
+      } catch (err) {
+        this.status =
+          "We weren't able to find your trash and recycling schedule"
+        this.status += this.$parent.$refs.provider?.provider
+          ? ', but we know who your hauler is. Contact the provider listed above for your pickup schedule.'
+          : '.'
+      } finally {
+        this.loading = false
+      }
+    }
+  }
 }
 </script>

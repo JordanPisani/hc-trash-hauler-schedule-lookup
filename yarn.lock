@@ -862,6 +862,16 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hcflgov/vue-esri-search@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@hcflgov/vue-esri-search/-/vue-esri-search-1.1.1.tgz#fabec3e36f0a5d90d948c828b0fa0f457f14b12c"
+  integrity sha512-BXZAcMY7GpXiokMczafSRb16EhV4b/PB0Vnr8KSq8x7k9K941kYtNlqLgNgUOarQCgaF4uA8GcXuNUT+7fezrQ==
+  dependencies:
+    esri-loader "^2.9.1"
+    lodash.debounce "^4.0.8"
+    vue "^2.6.6"
+    vuex "^3.1.0"
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -3320,17 +3330,10 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
 
-esri-loader@^2.3.0, esri-loader@^2.4.0:
+esri-loader@^2.9.1:
   version "2.14.0"
   resolved "https://registry.yarnpkg.com/esri-loader/-/esri-loader-2.14.0.tgz#2a7e6dc1226945f88f1a92ee4b9dcadb256f406c"
   integrity sha512-ptDU9FyYeiY3etp3WaQNRJ6gIo3+R6umQ9r00QF96OkRjtZReEvKdbje5KbKLuAs/LKLwbivddL2izKvL4HSoQ==
-
-"esri-portal-map@git+https://github.com/Commbocc/esri-portal-map.git":
-  version "1.0.0"
-  resolved "git+https://github.com/Commbocc/esri-portal-map.git#cb14a8863bec1d4476ad19a071ea0f5173e4fe01"
-  dependencies:
-    esri-loader "^2.3.0"
-    vue "^2.5.11"
 
 estraverse@^4.1.0, estraverse@^4.1.1:
   version "4.3.0"
@@ -4055,15 +4058,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
-
-"hc-esri-search-widget@git+https://github.com/Commbocc/hc-esri-search-widget.git":
-  version "1.0.0"
-  resolved "git+https://github.com/Commbocc/hc-esri-search-widget.git#97af88f47f66817ea0dad84cdb006d455ae14f1f"
-  dependencies:
-    esri-loader "^2.4.0"
-    esri-portal-map "git+https://github.com/Commbocc/esri-portal-map.git"
-    lodash.debounce "^4.0.8"
-    vue "^2.5.17"
 
 he@1.2.x, he@^1.1.0:
   version "1.2.0"
@@ -7962,12 +7956,12 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.5.11, vue@^2.5.17, vue@^2.6.11:
+vue@^2.6.11, vue@^2.6.6:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuex@^3.4.0:
+vuex@^3.1.0:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.5.1.tgz#f1b8dcea649bc25254cf4f4358081dbf5da18b3d"
   integrity sha512-w7oJzmHQs0FM9LXodfskhw9wgKBiaB+totOdb8sNzbTB2KDCEEwEs29NzBZFh/lmEK1t5tDmM1vtsO7ubG1DFw==

@@ -9,17 +9,16 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name HcHaulerApp --formats umd-min",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@hcflgov/vue-esri-search": "^1.1.1",
     "axios": "^0.18.0",
     "core-js": "^3.6.5",
-    "hc-esri-search-widget": "git+https://github.com/Commbocc/hc-esri-search-widget.git",
     "moment": "^2.22.2",
     "underscore": "^1.9.1",
-    "vue": "^2.6.11",
-    "vuex": "^3.4.0"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

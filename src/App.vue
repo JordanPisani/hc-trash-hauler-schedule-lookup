@@ -8,7 +8,7 @@
     <div v-show="searchResult" class="card mb-3">
       <div v-if="searchResult" class="card-header bg-secondary text-white font-weight-bold">
         Results For:
-        {{ searchResult.result.name }}
+        {{ searchResult.name }}
       </div>
 
       <!-- provider -->
@@ -18,27 +18,58 @@
       <div is="Schedule" ref="schedule"></div>
     </div>
 
-    <!-- <pre class="p-3 bg-dark text-white">{{ $store.state }}</pre> -->
+    <!-- <pre class="p-3 bg-dark text-white">{{ $data }}</pre> -->
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import HcEsriSearchWidget from 'hc-esri-search-widget'
-import Provider from './components/Provider'
-import Schedule from './components/Schedule'
+import HcEsriSearchWidget from '@hcflgov/vue-esri-search'
+import Provider from '@/models/Provider'
+import Logger from '@/models/Logger'
 
 export default {
+  install(Vue, options) {
+    Vue.prototype.$providers = options?.providers || Provider.index
+    Vue.component('HcHaulerApp', this)
+  },
+  data: () => ({
+    searchResult: null,
+    status: null
+  }),
   components: {
     HcEsriSearchWidget,
-    Provider,
-    Schedule
+    Provider: () =>
+      import(/* webpackChunkName: "provider" */ '@/components/Provider'),
+    Schedule: () =>
+      import(/* webpackChunkName: "schedule" */ '@/components/Schedule')
   },
-  methods: mapActions(['resetApp', 'findProviderAndSchedule']),
-  computed: mapState({
-    searchResult: state => state.search.result,
-    status: state => state.status
-  })
+  methods: {
+    resetApp() {
+      this.status = null
+      this.searchResult = null
+    },
+    async findProviderAndSchedule(searchResult) {
+      try {
+        // save search result to data
+        this.searchResult = searchResult
+        // find provider then schedule
+        await this.$refs.provider.find(this.searchResult.queryFeatures)
+        await this.$refs.schedule.find(this.searchResult.queryFeatures)
+      } catch (err) {
+        // search error handling
+        this.status = err.message
+      } finally {
+        // log
+        new Logger({
+          app: this.$data,
+          provider: this.$refs.provider.$data,
+          schedule: this.$refs.schedule.$data
+        })
+        // emit finished
+        this.$emit('finished', this)
+      }
+    }
+  }
 }
 </script>
 

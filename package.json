@@ -16,7 +16,7 @@
     "@hcflgov/vue-esri-search": "^1.1.1",
     "axios": "^0.18.0",
     "core-js": "^3.6.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "underscore": "^1.9.1",
     "vue": "^2.6.11"
   },

@@ -1,37 +1,26 @@
-import { featureLayerProps, queryFeatures } from '@hcflgov/vue-esri-search'
+import { ref } from 'vue'
+import { input, searchResults } from '@hcflgov/vue-esri-search'
+import { fetchProviderFeatures } from './providers'
+import { fetchScheduleFeatures } from './schedule'
 
-export const watchResults = async (
-  results: __esri.SearchResult[] | undefined
-) => {
-  try {
-    if (!results) throw 'No Search Results'
-    const [firstResult] = results
+export const hasSearched = ref<boolean>(false)
 
-    /**
-     * provider
-     */
-    featureLayerProps.url =
-      'https://maps.hillsboroughcounty.org/arcgis/rest/services/InfoLayers/SW_FACILITIES/MapServer/1'
-    console.log('provider:', await queryFeatures(firstResult?.extent))
+export const watchResults = async (results: __esri.SearchResult[]) => {
+  hasSearched.value = true
+  searchResults.status = null
+  if (!results.length) throw 'No Search Results'
+  const [firstResult] = results
 
-    /**
-     * schedules
-     */
-    const scheduleEndpoint =
-      'https://maps.hillsboroughcounty.org/arcgis/rest/services/SolidWaste_Viewer/SolidWasteRouteSchedules/MapServer'
+  searchResults.status = `Results for ${firstResult.name}`
 
-    // trash schedule
-    featureLayerProps.url = `${scheduleEndpoint}/2`
-    console.log('trash:', await queryFeatures(firstResult?.extent))
+  await Promise.allSettled([
+    fetchProviderFeatures(firstResult?.extent),
+    fetchScheduleFeatures(firstResult?.extent),
+  ])
+}
 
-    // recycle schedule
-    featureLayerProps.url = `${scheduleEndpoint}/1`
-    console.log('recycle:', await queryFeatures(firstResult?.extent))
-
-    // yard schedule
-    featureLayerProps.url = `${scheduleEndpoint}/0`
-    console.log('yard:', await queryFeatures(firstResult?.extent))
-  } catch (error) {
-    console.warn(error)
-  }
+if (import.meta.env.DEV) {
+  input.value = '602 W Bloomingdale Ave, Brandon, FL 33511' // hc
+  // input.value = '601 E Kennedy Blvd, Tampa' // tampa
+  // input.value = '1702 Waller St, Plant City, 33563' // plant
 }

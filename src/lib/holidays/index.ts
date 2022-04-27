@@ -39,7 +39,7 @@ const standardConfig: IHolidayConfig = {
  * dev test dates
  */
 if (import.meta.env.DEV) {
-  standardConfig.holidays.push(Tests.ExactMonthDate(Months.April, 13))
+  standardConfig.holidays.push(Tests.ExactMonthDate(Months.April, 28))
 }
 
 /**

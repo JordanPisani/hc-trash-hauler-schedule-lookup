@@ -31,8 +31,15 @@ const dateOptions: Intl.DateTimeFormatOptions = {
             {{ days.map((d) => `${d.toString()}s`).join(' & ') }}
 
             <ul>
-              <li v-for="date in nextDates[type]">
-                {{ date.toLocaleDateString(undefined, dateOptions) }}
+              <li v-for="result in nextDates[type]">
+                <span
+                  :class="{ 'text-decoration-line-through': result.isHoliday }"
+                >
+                  {{ result.date.toLocaleDateString(undefined, dateOptions) }}
+                </span>
+                <span v-if="result.isHoliday" class="badge bg-secondary ms-2">
+                  No pickup on holiday
+                </span>
               </li>
             </ul>
           </td>

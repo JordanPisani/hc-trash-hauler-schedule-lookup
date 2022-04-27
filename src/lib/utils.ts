@@ -11,15 +11,22 @@ export function nexDayOfWeek(
   startDate = new Date(),
   excludeStartDate = false
 ): Date {
-  startDate = excludeStartDate
-    ? new Date(startDate.setDate(startDate.getDate() + 1))
-    : startDate
+  startDate = new Date(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    excludeStartDate ? startDate.getDate() + 1 : startDate.getDate()
+  )
 
   const startDateDayOfMonth = startDate.getDate()
   const startDateDayOfWeek = startDate.getDay()
   const distance = DaysOfWeek[dayOfWeek] - startDateDayOfWeek
 
-  let date = new Date(new Date().setDate(startDateDayOfMonth + distance))
+  let date = new Date(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    startDateDayOfMonth + distance
+  )
+
   return date < startDate ? new Date(date.setDate(date.getDate() + 7)) : date
 }
 
@@ -28,28 +35,48 @@ export function nexDayOfWeek(
  * @param this
  * @param dayOfWeek
  */
-export function nextDayOfWeekSkipHolidays(
+export function nextDaysOfWeekWithHolidays(
   this: ScheduleTypes,
   dayOfWeek: keyof typeof DaysOfWeek
-): Date {
-  let date = nexDayOfWeek(dayOfWeek)
-  while (
-    this === 'recycle'
-      ? recyclingClient.isHoliday(date)
-      : standardClient.isHoliday(date)
-  ) {
-    date = nexDayOfWeek(dayOfWeek, date, true)
+): INextDateResult[] {
+  let dateResults: INextDateResult[] = []
+
+  let nextDate: Date = nexDayOfWeek(dayOfWeek)
+
+  let dateResult: INextDateResult = {
+    date: nextDate,
+    isHoliday:
+      this === 'recycle'
+        ? recyclingClient.isHoliday(nextDate)
+        : standardClient.isHoliday(nextDate),
   }
-  return date
+
+  dateResults.push(dateResult)
+
+  while (dateResult.isHoliday) {
+    nextDate = nexDayOfWeek(dayOfWeek, dateResult.date, true)
+
+    dateResult = {
+      date: nextDate,
+      isHoliday:
+        this === 'recycle'
+          ? recyclingClient.isHoliday(nextDate)
+          : standardClient.isHoliday(nextDate),
+    }
+
+    dateResults.push(dateResult)
+  }
+
+  return dateResults
 }
 
 /**
- * Sorts array of dates in ascending order
+ * Sorts array of INextDateResult dates in ascending order
  * @param a
  * @param b
  */
-export function sortDatesAsc(a: Date, b: Date) {
-  return a.valueOf() - b.valueOf()
+export function sortDatesAsc(a: INextDateResult, b: INextDateResult) {
+  return a.date.valueOf() - b.date.valueOf()
 }
 
 /**

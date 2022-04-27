@@ -47,6 +47,11 @@ interface IReactiveAirtableProviders {
   data: IAirtableProvider[]
 }
 
+interface INextDateResult {
+  date: Date
+  isHoliday: boolean
+}
+
 /**
  * Holidays
  */

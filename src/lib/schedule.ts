@@ -1,6 +1,6 @@
 import { computed, reactive } from 'vue'
 import { featureLayerProps, queryFeatures } from '@hcflgov/vue-esri-search'
-import { nextDayOfWeekSkipHolidays, sortDatesAsc } from './utils'
+import { nextDaysOfWeekWithHolidays, sortDatesAsc } from './utils'
 import { DaysOfWeek } from './holidays'
 
 const scheduleEndpoint =
@@ -50,24 +50,25 @@ export const weekdays = computed<
   }
 })
 
-export const nextDates = computed<Record<ScheduleTypes, Date[] | undefined>>(
-  () => {
-    const { garbage, recycle, yard } = weekdays.value
-    return {
-      garbage: garbage
-        ? garbage.map(nextDayOfWeekSkipHolidays).sort(sortDatesAsc)
-        : undefined,
-      recycle: recycle
-        ? recycle
-            .map(nextDayOfWeekSkipHolidays.bind('recycle'))
-            .sort(sortDatesAsc)
-        : undefined,
-      yard: yard
-        ? yard.map(nextDayOfWeekSkipHolidays).sort(sortDatesAsc)
-        : undefined,
-    }
+export const nextDates = computed<
+  Record<ScheduleTypes, INextDateResult[] | undefined>
+>(() => {
+  const { garbage, recycle, yard } = weekdays.value
+  return {
+    garbage: garbage
+      ? garbage.map(nextDaysOfWeekWithHolidays).flat().sort(sortDatesAsc)
+      : undefined,
+    recycle: recycle
+      ? recycle
+          .map(nextDaysOfWeekWithHolidays.bind('recycle'))
+          .flat()
+          .sort(sortDatesAsc)
+      : undefined,
+    yard: yard
+      ? yard.map(nextDaysOfWeekWithHolidays).flat().sort(sortDatesAsc)
+      : undefined,
   }
-)
+})
 
 export const hasSchedule = computed<boolean>(
   () =>
